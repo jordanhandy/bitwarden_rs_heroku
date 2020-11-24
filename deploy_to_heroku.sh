@@ -17,7 +17,7 @@ scriptsCommonUtilities="$currentDir/scripts-common/utilities.sh"
 . "$scriptsCommonUtilities"
 
 echo "Clone current bitwarden_rs with depth 1"
-git clone --depth 1 https://github.com/dani-garcia/bitwarden_rs.git
+git clone https://github.com/dani-garcia/bitwarden_rs.git
 
 checkPath "$repo_folder" || errorMessage "Path '$repo_folder' should exist. Check if the git clone functioning."
 checkBin heroku || errorMessage "This tool requires heroku CLI to be installed. Install it please, and then run this tool again after cleaning the folder."
@@ -57,6 +57,7 @@ echo "And set DB connections to five in order not to saturate the free DB"
 heroku config:set DATABASE_MAX_CONNS=5 -a $APP_NAME
 
 echo "Now we will build the amd64 image to deploy to Heroku with the specified port changes"
+cp Dockerfile ./bitwarden_rs/Dockerfile
 cd ./bitwarden_rs
 heroku container:push web -a $APP_NAME
 
