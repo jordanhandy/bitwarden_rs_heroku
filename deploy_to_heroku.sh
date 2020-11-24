@@ -57,8 +57,9 @@ echo "And set DB connections to five in order not to saturate the free DB"
 heroku config:set DATABASE_MAX_CONNS=5 -a $APP_NAME
 
 echo "Now we will build the amd64 image to deploy to Heroku with the specified port changes"
-cp Dockerfile ./bitwarden_rs/Dockerfile
-cd ./bitwarden_rs
+cd ./bitwarden_rs/docker/amd64
+cp Dockerfile ../../Dockerfile
+cd ../../
 heroku container:push web -a $APP_NAME
 
 echo "Now we can release the app which will publish it"
